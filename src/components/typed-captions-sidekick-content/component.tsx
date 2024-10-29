@@ -17,10 +17,10 @@ export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
     captionLocale,
   } = props;
   const pluginApi: PluginApi = BbbPluginSdk.getPluginApi(uuid);
-  const [
-    captionMessagesResponseFromDataChannel,
-    pushCaptionMessagesResponseFromDataChannel,
-  ] = pluginApi.useDataChannel<CaptionMessage>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, `caption-messages-${captionLocale}`);
+  const {
+    data: captionMessagesResponseFromDataChannel,
+    pushEntry: pushCaptionMessagesResponseFromDataChannel,
+  } = pluginApi.useDataChannel<CaptionMessage>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, `caption-messages-${captionLocale}`);
 
   return (
     <Styled.CaptionsWrapper>
