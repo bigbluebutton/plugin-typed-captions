@@ -21,11 +21,11 @@ function TypedCaptions(
 
   const pluginApi: PluginApi = BbbPluginSdk.getPluginApi(uuid);
 
-  const [
-    captionMenusResponseFromDataChannel,
-    pushCaptionMenuResponseFromDataChannel,
-    excludeCaptionMenuResponseFromDataChannel,
-  ] = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, 'caption-menus');
+  const {
+    data: captionMenusResponseFromDataChannel,
+    pushEntry: pushCaptionMenuResponseFromDataChannel,
+    deleteEntry: excludeCaptionMenuResponseFromDataChannel,
+  } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, 'caption-menus');
 
   const [captionLocale, setCaptionLocale] = React.useState('');
 
@@ -56,6 +56,7 @@ function TypedCaptions(
                 />
               </React.StrictMode>,
             );
+            return root;
           },
         }));
       pluginApi.setGenericContentItems(sidekickMenuComponentList);
