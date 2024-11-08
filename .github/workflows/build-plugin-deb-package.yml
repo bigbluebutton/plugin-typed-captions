@@ -46,21 +46,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y devscripts debhelper
 
-      # - name: Build Debian package
-      #   run: |
-      #     sudo dpkg-buildpackage -us -uc
+      - name: Build Debian package
+        run: |
+          sudo dpkg-buildpackage -us -uc
 
-      # - name: Create artifacts directory and move .deb files
-      #   run: |
-      #     mkdir -p artifacts
-      #     mv ../*.deb artifacts/ || mv ./*.deb artifacts/
-      #     ls -la artifacts
+      - name: Create artifacts directory and move .deb files
+        run: |
+          mkdir -p artifacts
+          mv ../*.deb artifacts/ || mv ./*.deb artifacts/
+          ls -la artifacts
 
-      # - name: Upload Debian Package
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: "${{ env.REPO_NAME }}-${{ env.OS_VERSION }}"
-      #     path: artifacts/*.deb
+      - name: Upload Debian Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.REPO_NAME }}-${{ env.OS_VERSION }}"
+          path: artifacts/*.deb
 
   release:
     name: "Upload assets to release"
