@@ -1,0 +1,15 @@
+Source: bbb-plugin-typed-captions
+Section: web
+Priority: extra
+Maintainer: Anton Georgiev <anton.georgiev@blindsidenetworks.com>
+Build-Depends: debhelper (>= 13), nodejs (>= 18)
+Standards-Version: 4.1.4
+Homepage: https://github.com/bigbluebutton/plugin-typed-captions
+
+Package: bbb-plugin-typed-captions
+Architecture: all
+Depends: ${misc:Depends}, nodejs
+Description: Allow for manually written closed captions
+ An official BigBlueButton plugin which allows
+ a caption writer to type captions for
+ all viewers inside of a session.
