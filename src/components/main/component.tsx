@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { createIntl, defineMessages } from 'react-intl';
 
 import {
   ActionButtonDropdownOption,
@@ -9,10 +10,30 @@ import {
   GenericContentSidekickArea,
   PluginApi,
 } from 'bigbluebutton-html-plugin-sdk';
+
 import { TypedCaptionsProps } from './types';
 import { TypedCaptionsModal } from '../modal/component';
 import { CaptionMenu } from '../../common/types';
 import { TypedCaptionsSidekickArea } from '../typed-captions-sidekick-content/component';
+
+const intlMessages = defineMessages({
+  writeCC: {
+    id: 'plugin.actionButtonDropdown.write',
+    description: 'action button dropdown label to start writing',
+  },
+  stopCC: {
+    id: 'plugin.actionButtonDropdown.remove',
+    description: 'action button dropdown label to start writing',
+  },
+  sectionName: {
+    id: 'plugin.actionButtonDropdown.sidekickComponent.sectionName',
+    description: 'name of the sidekick component section',
+  },
+  menuTitle: {
+    id: 'plugin.actionButtonDropdown.sidekickComponent.menuTitle',
+    description: 'title of the sidekick component menu (internal part)',
+  },
+});
 
 function TypedCaptions(
   { pluginUuid: uuid }: TypedCaptionsProps,
@@ -27,6 +48,22 @@ function TypedCaptions(
     deleteEntry: excludeCaptionMenuResponseFromDataChannel,
   } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, 'caption-menus');
 
+  const {
+    messages,
+    currentLocale,
+    loading: localeMessagesLoading,
+  } = pluginApi.useLocaleMessages({
+    headers: {
+      'ngrok-skip-browser-warning': 'any',
+    },
+  });
+
+  const intl = (!localeMessagesLoading && messages) ? createIntl({
+    locale: currentLocale,
+    messages,
+    fallbackOnEmptyString: true,
+  }) : null;
+
   const [captionLocale, setCaptionLocale] = React.useState('');
 
   const currentUserResponse = pluginApi.useCurrentUser();
@@ -39,12 +76,15 @@ function TypedCaptions(
 
   /// contentFunction, name, section, buttonIcon
   React.useEffect(() => {
-    if (captionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
+    if (!localeMessagesLoading && captionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
+      const sectionName = intl.formatMessage(intlMessages.sectionName);
       const sidekickMenuComponentList = captionMenusResponseFromDataChannel?.data
         .map((menu) => new GenericContentSidekickArea({
-          name: `Transcription (${menu.payloadJson.captionLocale})`,
+          name: intl.formatMessage(intlMessages.menuTitle, {
+            0: menu.payloadJson.captionLocale,
+          }),
           buttonIcon: 'closed_caption',
-          section: 'Captions',
+          section: sectionName,
           open: true,
           contentFunction: (element: HTMLElement) => {
             const root = ReactDOM.createRoot(element);
@@ -53,6 +93,7 @@ function TypedCaptions(
                 <TypedCaptionsSidekickArea
                   captionLocale={menu.payloadJson.captionLocale}
                   uuid={uuid}
+                  intl={intl}
                 />
               </React.StrictMode>,
             );
@@ -61,7 +102,7 @@ function TypedCaptions(
         }));
       pluginApi.setGenericContentItems(sidekickMenuComponentList);
     }
-  }, [captionMenusResponseFromDataChannel]);
+  }, [captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
 
   React.useEffect(() => {
     if (currentUserResponse?.data?.role === 'MODERATOR') {
@@ -81,34 +122,39 @@ function TypedCaptions(
       let actionButtonDropdownOnClick = () => {
         excludeCaptionMenuResponseFromDataChannel([entryIdToRemove]);
       };
-      let actionButtonDropdownLabel = 'Remove typed closed captions';
-      if (!entryIdToRemove) {
-        actionButtonDropdownLabel = 'Write closed captions';
-        actionButtonDropdownOnClick = () => {
-          setIsModalOpen(true);
-        };
+      let actionButtonDropdownLabel = '';
+      if (intl) {
+        if (!entryIdToRemove) {
+          actionButtonDropdownLabel = intl.formatMessage(intlMessages.writeCC);
+          actionButtonDropdownOnClick = () => {
+            setIsModalOpen(true);
+          };
+        } else actionButtonDropdownLabel = intl.formatMessage(intlMessages.stopCC);
       }
-      pluginApi.setActionButtonDropdownItems([
-        new ActionButtonDropdownSeparator(),
-        new ActionButtonDropdownOption({
-          icon: 'closed_caption',
-          label: actionButtonDropdownLabel,
-          tooltip: 'this is a button injected by plugin',
-          allowed: true,
-          onClick: actionButtonDropdownOnClick,
-        }),
-      ]);
+      if (!localeMessagesLoading) {
+        pluginApi.setActionButtonDropdownItems([
+          new ActionButtonDropdownSeparator(),
+          new ActionButtonDropdownOption({
+            icon: 'closed_caption',
+            label: actionButtonDropdownLabel,
+            tooltip: 'this is a button injected by plugin',
+            allowed: true,
+            onClick: actionButtonDropdownOnClick,
+          }),
+        ]);
+      }
     } else {
       pluginApi.setActionButtonDropdownItems([]);
       pluginApi.setGenericContentItems([]);
     }
-  }, [currentUserResponse, captionMenusResponseFromDataChannel]);
+  }, [currentUserResponse, captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
 
   return (
     <TypedCaptionsModal
       availableCaptionMenus={captionMenusResponseFromDataChannel?.data}
       pushCaptionMenu={pushCaptionMenuResponseFromDataChannel}
       captionLocale={captionLocale}
+      intl={intl}
       setCaptionLocale={setCaptionLocale}
       isOpen={isModalOpen}
       onRequestClose={onRequestClose}

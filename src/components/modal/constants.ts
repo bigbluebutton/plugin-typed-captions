@@ -1,4 +1,6 @@
-export const AVAILABLE_LOCALES = [
+import { AvailableLocaleObject } from '../../common/types';
+
+export const AVAILABLE_LOCALES: AvailableLocaleObject[] = [
   { locale: 'de-DE', name: 'German' },
   { locale: 'en-US', name: 'English' },
   { locale: 'es-ES', name: 'Spanish' },
