@@ -20,7 +20,7 @@ export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
   const {
     data: captionMessagesResponseFromDataChannel,
     pushEntry: pushCaptionMessagesResponseFromDataChannel,
-  } = pluginApi.useDataChannel<CaptionMessage>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, `caption-messages-${captionLocale}`);
+  } = pluginApi.useDataChannel<CaptionMessage>('typed-captions-data-channel', DataChannelTypes.ALL_ITEMS, `caption-messages-${captionLocale}`);
 
   return (
     <Styled.CaptionsWrapper>
