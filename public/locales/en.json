@@ -1,0 +1,20 @@
+{
+  "plugin.actionButtonDropdown.write": "Write closed captions",
+  "plugin.actionButtonDropdown.remove": "Remove typed closed captions",
+  "plugin.actionButtonDropdown.modal.selectorLabel": "Please select a language and styles for closed captions within your session.",
+  "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Select",
+  "plugin.actionButtonDropdown.modal.start": "Start",
+  "plugin.actionButtonDropdown.modal.dropdown.de-DE": "German",
+  "plugin.actionButtonDropdown.modal.dropdown.en-US": "English",
+  "plugin.actionButtonDropdown.modal.dropdown.es-ES": "Spanish",
+  "plugin.actionButtonDropdown.modal.dropdown.fr-FR": "French",
+  "plugin.actionButtonDropdown.modal.dropdown.hi-ID": "Hindi",
+  "plugin.actionButtonDropdown.modal.dropdown.it-IT": "Italian",
+  "plugin.actionButtonDropdown.modal.dropdown.ja-JP": "Japonese",
+  "plugin.actionButtonDropdown.modal.dropdown.pt-BR": "Portuguese",
+  "plugin.actionButtonDropdown.modal.dropdown.ru-RU": "Russian",
+  "plugin.actionButtonDropdown.modal.dropdown.zh-CN": "Chinese",
+  "plugin.actionButtonDropdown.sidekickComponent.sectionName": "Captions",
+  "plugin.actionButtonDropdown.sidekickComponent.menuTitle": "Transcription ({0})",
+  "plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder": "Type your captions"
+}

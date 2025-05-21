@@ -1,15 +1,16 @@
 import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
+import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
 import { getSpeechVoices } from './service';
 import Styled from './styles';
-import { Locale } from '../types';
 import LocalesDropdown from './locales-dropdown/component';
 import './styles.css';
 import { AVAILABLE_LOCALES } from './constants';
-import { CaptionMenu } from '../../common/types';
+import { AvailableLocaleObject, CaptionMenu } from '../../common/types';
 
 interface TypedCaptionsModalProps {
   isOpen: boolean;
+  intl: IntlShape;
   onRequestClose: () => void;
   setIsOpen: (value: boolean) => void;
   availableCaptionMenus: BbbPluginSdk.DataChannelEntryResponseType<CaptionMenu>[];
@@ -21,10 +22,20 @@ interface TypedCaptionsModalProps {
 
 const TIMEOUT_RENDER_ERROR = 3000;
 
-const intlMessages = {
-  start: 'Start',
-  select: 'Select',
-};
+const intlMessages = defineMessages({
+  selectorLabel: {
+    id: 'plugin.actionButtonDropdown.modal.selectorLabel',
+    description: 'action button dropdown label to start writing',
+  },
+  selectPlaceholder: {
+    id: 'plugin.actionButtonDropdown.modal.selectPlaceHolder',
+    description: 'placeholder of the selector',
+  },
+  startButtonLabel: {
+    id: 'plugin.actionButtonDropdown.modal.start',
+    description: 'start button label',
+  },
+});
 
 function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const {
@@ -36,15 +47,16 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
     captionLocale: locale,
     setCaptionLocale: setLocale,
     pluginApi,
+    intl,
   } = props;
 
-  const [availableLocales, setAvailableLocales] = React.useState<Locale[]>([]);
+  const [availableLocales, setAvailableLocales] = React.useState<AvailableLocaleObject[]>([]);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
     const speechVoices = getSpeechVoices();
     setAvailableLocales(AVAILABLE_LOCALES.filter(
-      (availableLocale: Locale) => speechVoices.includes(availableLocale?.locale),
+      (availableLocale: AvailableLocaleObject) => speechVoices.includes(availableLocale?.locale),
     ));
     return () => {
       setIsOpen(false);
@@ -82,6 +94,8 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
     setLocale(event.target.value);
   };
 
+  if (!intl) return null;
+  const selectorLabel = intl.formatMessage(intlMessages.selectorLabel);
   return (
     <Styled.TypedCaptionsModal
       overlayClassName="modal-overlay"
@@ -104,7 +118,7 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
       </Styled.CloseButton>
       <Styled.Content>
         <span>
-          Please select a language and styles for closed captions within your session.
+          {selectorLabel}
         </span>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label
@@ -116,7 +130,8 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
             handleChange={handleChange}
             value={locale}
             elementId="captionsLangSelector"
-            selectMessage={intlMessages.select}
+            intl={intl}
+            selectMessage={intl.formatMessage(intlMessages.selectPlaceholder)}
           />
         </Styled.WriterMenuSelect>
         {errorMessage ?? (
@@ -128,7 +143,7 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
           type="button"
           onClick={(e) => { handleStart(e); }}
         >
-          {intlMessages.start}
+          {intl.formatMessage(intlMessages.startButtonLabel)}
         </Styled.StartBtn>
       </Styled.Content>
     </Styled.TypedCaptionsModal>
