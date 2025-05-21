@@ -26,6 +26,33 @@ pluginManifests=[{"url":"<your-domain>/path/to/manifest.json"}]
 
 Or additionally, you can add this same configuration in the `.properties` file from `bbb-web` in `/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties`
 
+### Extra settings:
+
+Pay attention that the audio captions must be enabled, to do that, you open `/etc/bigbluebutton/bbb-html5.yml` and add the yaml directive `public.app.audioCaptions.enabled=true`, just like the following:
+
+```yml
+public:
+  app:
+    # You may have other setting items here
+    audioCaptions:
+      enabled: true
+```
+
+also, ensure the captions needed are uncommented in the list `public.app.audioCaptions.language.available`, as the following example for en-US:
+```yml
+public:
+  app:
+    audioCaptions:
+      language:
+        # the uncommented languages will be loaded as captions 
+        available:
+        # - de-DE
+          - en-US
+        # - fr-FR
+```
+
+Make sure you don't change any other setting, save the file, and we're good to go!
+
 
 ## Development mode
 
