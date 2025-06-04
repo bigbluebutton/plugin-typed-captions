@@ -1,11 +1,10 @@
 import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
 import * as React from 'react';
-import { getSpeechVoices } from './service';
 import Styled from './styles';
 import { Locale } from '../types';
 import LocalesDropdown from './locales-dropdown/component';
 import './styles.css';
-import { AVAILABLE_LOCALES } from './constants';
+import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
 import { CaptionMenu } from '../../common/types';
 
 interface TypedCaptionsModalProps {
@@ -42,9 +41,8 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
-    const speechVoices = getSpeechVoices();
     setAvailableLocales(AVAILABLE_LOCALES.filter(
-      (availableLocale: Locale) => speechVoices.includes(availableLocale?.locale),
+      (availableLocale: Locale) => CAPTIONS_CONFIG_LANGUAGES.includes(availableLocale?.locale),
     ));
     return () => {
       setIsOpen(false);
