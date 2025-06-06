@@ -25,7 +25,7 @@ function TypedCaptions(
     data: captionMenusResponseFromDataChannel,
     pushEntry: pushCaptionMenuResponseFromDataChannel,
     deleteEntry: excludeCaptionMenuResponseFromDataChannel,
-  } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.All_ITEMS, 'caption-menus');
+  } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.ALL_ITEMS, 'caption-menus');
 
   const [captionLocale, setCaptionLocale] = React.useState('');
 
