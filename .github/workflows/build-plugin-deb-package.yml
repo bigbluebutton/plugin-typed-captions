@@ -2,11 +2,11 @@
 name: "📦 Build .deb package for plugin"
 on:
   push:
-    branches: [ "main"]
+    branches: [ "v0.0.x"]
     paths-ignore:
       - debian/changelog
   pull_request:
-    branches: [ "main" ]
+    branches: [ "v0.0.x" ]
     paths-ignore:
       - debian/changelog
 
