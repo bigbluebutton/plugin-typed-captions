@@ -1,0 +1,20 @@
+{
+  "plugin.actionButtonDropdown.write": "Écrire des sous-titres",
+  "plugin.actionButtonDropdown.remove": "Supprimer les sous-titres tapés",
+  "plugin.actionButtonDropdown.modal.selectorLabel": "Veuillez sélectionner une langue et des styles pour les sous-titres  dans votre session.",
+  "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Sélectionner",
+  "plugin.actionButtonDropdown.modal.start": "Commencer",
+  "plugin.actionButtonDropdown.modal.dropdown.de-DE": "Allemand",
+  "plugin.actionButtonDropdown.modal.dropdown.en-US": "Anglais",
+  "plugin.actionButtonDropdown.modal.dropdown.es-ES": "Espagnol",
+  "plugin.actionButtonDropdown.modal.dropdown.fr-FR": "Français",
+  "plugin.actionButtonDropdown.modal.dropdown.hi-ID": "Hindi",
+  "plugin.actionButtonDropdown.modal.dropdown.it-IT": "Italien",
+  "plugin.actionButtonDropdown.modal.dropdown.ja-JP": "Japonais",
+  "plugin.actionButtonDropdown.modal.dropdown.pt-BR": "Portugais",
+  "plugin.actionButtonDropdown.modal.dropdown.ru-RU": "Russe",
+  "plugin.actionButtonDropdown.modal.dropdown.zh-CN": "Chinois",
+  "plugin.actionButtonDropdown.sidekickComponent.sectionName": "Sous-titres",
+  "plugin.actionButtonDropdown.sidekickComponent.menuTitle": "Transcription ({0})",
+  "plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder": "Tapez vos sous-titres"
+}
