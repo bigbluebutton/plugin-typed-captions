@@ -7,6 +7,7 @@ import { CaptionMessage } from '../../../common/types';
 interface GenericContentExampleProps {
   pushCaptionMessages: PushEntryFunction<CaptionMessage>;
   captionLocale: string;
+  placeholder: string;
   pluginApi: PluginApi;
 }
 
@@ -15,6 +16,7 @@ export function TypedCaptionsInput(props: GenericContentExampleProps) {
     pushCaptionMessages,
     captionLocale,
     pluginApi,
+    placeholder,
   } = props;
 
   const textAreaRef = React.useRef(null);
@@ -68,7 +70,7 @@ export function TypedCaptionsInput(props: GenericContentExampleProps) {
         <Styled.Input
           id="message-input"
           ref={textAreaRef}
-          placeholder="Type your captions"
+          placeholder={placeholder}
           autoCorrect="off"
           autoComplete="off"
           spellCheck="true"

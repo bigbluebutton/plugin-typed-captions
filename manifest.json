@@ -2,7 +2,7 @@
   "requiredSdkVersion": "~0.0.59",
   "name": "TypedCaptions",
   "javascriptEntrypointUrl": "TypedCaptions.js",
-  "localesBaseUrl": "https://cdn.dominio.com/pluginabc/",
+  "localesBaseUrl": "locales",
   "dataChannels": [
       {
           "name": "typed-captions-data-channel",
