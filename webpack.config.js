@@ -63,6 +63,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'manifest.json', to: './' }, // Copy manifest.json to static/ in the output folder
+        { from: 'public/locales/', to: './locales/' }, // Copy manifest.json to static/ in the output folder
       ],
     }),
   ],
