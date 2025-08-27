@@ -1,0 +1,20 @@
+{
+  "plugin.actionButtonDropdown.write": "Escrever legendas",
+  "plugin.actionButtonDropdown.remove": "Remover legendas digitadas",
+  "plugin.actionButtonDropdown.modal.selectorLabel": "Selecione a língua para as legendas digitadas na sua seção, por favor.",
+  "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Selecionar",
+  "plugin.actionButtonDropdown.modal.start": "Começar",
+  "plugin.actionButtonDropdown.modal.dropdown.de-DE": "Alemão",
+  "plugin.actionButtonDropdown.modal.dropdown.en-US": "Inglês",
+  "plugin.actionButtonDropdown.modal.dropdown.es-ES": "Espanhol",
+  "plugin.actionButtonDropdown.modal.dropdown.fr-FR": "Francês",
+  "plugin.actionButtonDropdown.modal.dropdown.hi-ID": "Hindi",
+  "plugin.actionButtonDropdown.modal.dropdown.it-IT": "Italiano",
+  "plugin.actionButtonDropdown.modal.dropdown.ja-JP": "Japonês",
+  "plugin.actionButtonDropdown.modal.dropdown.pt-BR": "Português",
+  "plugin.actionButtonDropdown.modal.dropdown.ru-RU": "Russo",
+  "plugin.actionButtonDropdown.modal.dropdown.zh-CN": "Chinês",
+  "plugin.actionButtonDropdown.sidekickComponent.sectionName": "Legendas",
+  "plugin.actionButtonDropdown.sidekickComponent.menuTitle": "Transcrição ({0})",
+  "plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder": "Digite suas legendas"
+}

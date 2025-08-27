@@ -56,4 +56,26 @@ Make sure you don't change any other setting, save the file, and we're good to g
 
 ## Development mode
 
+This is an internationalized plugin, meaning that it has translations in it. Therefore, if you want to test in dev mode it with the correct translations, one minor change is necessary to this code to make it work, search for `useLocaleMessages` in `src/components/main/component.tsx` and add the following argument into the function:
+
+```js
+{
+  headers: {
+    'ngrok-skip-browser-warning': 'any',
+  },
+}
+```
+
+It will look like:
+
+```ts
+pluginApi.useLocaleMessages({
+  headers: {
+    'ngrok-skip-browser-warning': 'any',
+  },
+});
+```
+
+This will allow the plugin to fetch the locale files through ngrok.
+
 As for development mode (running this plugin from source), please, refer back to https://github.com/bigbluebutton/bigbluebutton-html-plugin-sdk section `Running the Plugin from Source`
