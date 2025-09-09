@@ -53,7 +53,9 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
-    const filteredLocales = AVAILABLE_LOCALES.filter(l => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale));
+    const filteredLocales = AVAILABLE_LOCALES.filter(
+      (l) => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale),
+    );
     setAvailableLocales(filteredLocales as AvailableLocaleObject[]);
 
     return () => {
@@ -94,8 +96,10 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
 
   if (!intl) return null;
   const selectorLabel = intl.formatMessage(intlMessages.selectorLabel);
-  return (
+  return isOpen && (
     <Styled.TypedCaptionsModal
+      portalClassName="modal-low"
+      parentSelector={() => document.querySelector('#modals-container')}
       overlayClassName="modal-overlay"
       {...{
         isOpen,
