@@ -131,7 +131,7 @@ const Content = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: .3rem 0 0.5rem 0;
+  gap: 1rem;
 `;
 
 const CloseButton = styled.button`

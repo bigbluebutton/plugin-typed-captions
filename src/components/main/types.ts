@@ -1,6 +1,10 @@
+import { IntlShape } from 'react-intl';
+import { PluginApi } from 'bigbluebutton-html-plugin-sdk';
+
 interface TypedCaptionsProps {
-    pluginName: string,
-    pluginUuid: string,
+    intl: IntlShape;
+    pluginApi: PluginApi;
+    uuid: string;
 }
 
 interface ExternalVideoMeetingSubscription {
