@@ -3,20 +3,20 @@ import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
 import Styled from './styles';
 import LocalesDropdown from './locales-dropdown/component';
-import './styles.css';
 import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
-import { AvailableLocaleObject, CaptionMenu } from '../../common/types';
+import { AvailableLocaleObject, ActiveCaptionMenuInformation } from '../../common/types';
 
 interface TypedCaptionsModalProps {
   isOpen: boolean;
   intl: IntlShape;
   onRequestClose: () => void;
   setIsOpen: (value: boolean) => void;
-  availableCaptionMenus: BbbPluginSdk.DataChannelEntryResponseType<CaptionMenu>[];
-  pushCaptionMenu: BbbPluginSdk.PushEntryFunction<CaptionMenu>;
+  availableCaptionMenus: BbbPluginSdk.DataChannelEntryResponseType<ActiveCaptionMenuInformation>[];
+  pushCaptionMenu: BbbPluginSdk.PushEntryFunction<ActiveCaptionMenuInformation>;
   captionLocale: string;
   setCaptionLocale: (value: string) => void;
   pluginApi: BbbPluginSdk.PluginApi;
+  userId: string;
 }
 
 const TIMEOUT_RENDER_ERROR = 3000;
@@ -47,6 +47,7 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
     setCaptionLocale: setLocale,
     pluginApi,
     intl,
+    userId,
   } = props;
 
   const [availableLocales, setAvailableLocales] = React.useState<AvailableLocaleObject[]>([]);
@@ -77,7 +78,10 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
     )[0]?.entryId;
     if (locale !== '' && !alreadyUsedEntryId) {
       pluginApi.serverCommands.caption.addLocale(locale);
-      pushCaptionMenu({ captionLocale: locale });
+      pushCaptionMenu({
+        captionLocale: locale,
+        userId,
+      });
       setIsOpen(false);
     } else if (locale === '') {
       setError('Please select a language!');
@@ -100,7 +104,7 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
     <Styled.TypedCaptionsModal
       portalClassName="modal-low"
       parentSelector={() => document.querySelector('#modals-container')}
-      overlayClassName="modal-overlay"
+      overlayClassName="modalOverlay"
       {...{
         isOpen,
         onRequestClose,

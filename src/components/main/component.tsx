@@ -13,7 +13,7 @@ import {
 
 import { TypedCaptionsProps } from './types';
 import { TypedCaptionsModal } from '../modal/component';
-import { CaptionMenu } from '../../common/types';
+import { ActiveCaptionMenuInformation } from '../../common/types';
 import { TypedCaptionsSidekickArea } from '../typed-captions-sidekick-content/component';
 
 const intlMessages = defineMessages({
@@ -43,10 +43,10 @@ function TypedCaptions(
   const pluginApi: PluginApi = BbbPluginSdk.getPluginApi(uuid);
 
   const {
-    data: captionMenusResponseFromDataChannel,
-    pushEntry: pushCaptionMenuResponseFromDataChannel,
-    deleteEntry: excludeCaptionMenuResponseFromDataChannel,
-  } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.ALL_ITEMS, 'caption-menus');
+    data: activeCaptionMenusResponseFromDataChannel,
+    pushEntry: pushActiveCaptionMenuResponseFromDataChannel,
+    deleteEntry: deleteActiveCaptionMenuResponseFromDataChannel,
+  } = pluginApi.useDataChannel<ActiveCaptionMenuInformation>('typed-captions-data-channel', DataChannelTypes.ALL_ITEMS, 'caption-menus');
 
   const {
     messages,
@@ -76,9 +76,11 @@ function TypedCaptions(
 
   /// contentFunction, name, section, buttonIcon
   React.useEffect(() => {
-    if (!localeMessagesLoading && captionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
+    if (!localeMessagesLoading && activeCaptionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
       const sectionName = intl.formatMessage(intlMessages.sectionName);
-      const sidekickMenuComponentList = captionMenusResponseFromDataChannel?.data
+      const currentUserId = currentUserResponse?.data?.userId || '';
+      const sidekickMenuComponentList = activeCaptionMenusResponseFromDataChannel?.data
+        .filter((menu) => menu.fromUserId === currentUserId)
         .map((menu) => new GenericContentSidekickArea({
           name: intl.formatMessage(intlMessages.menuTitle, {
             0: menu.payloadJson.captionLocale,
@@ -102,25 +104,28 @@ function TypedCaptions(
         }));
       pluginApi.setGenericContentItems(sidekickMenuComponentList);
     }
-  }, [captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
+  }, [
+    currentUserResponse,
+    activeCaptionMenusResponseFromDataChannel,
+    localeMessagesLoading, messages]);
 
   React.useEffect(() => {
     if (currentUserResponse?.data?.role === 'MODERATOR') {
       let captionLocaleFromMenus = '';
       if (captionLocale === '') {
-        captionMenusResponseFromDataChannel?.data?.forEach((item) => {
+        activeCaptionMenusResponseFromDataChannel?.data?.forEach((item) => {
           if (item.fromUserId === currentUserResponse?.data?.userId) {
             setCaptionLocale(item.payloadJson.captionLocale);
             captionLocaleFromMenus = item.payloadJson.captionLocale;
           }
         });
       }
-      const entryIdToRemove = captionMenusResponseFromDataChannel?.data?.filter(
+      const entryIdToRemove = activeCaptionMenusResponseFromDataChannel?.data?.filter(
         (item) => item.payloadJson.captionLocale === captionLocale
         || captionLocaleFromMenus === item.payloadJson.captionLocale,
       )[0]?.entryId;
       let actionButtonDropdownOnClick = () => {
-        excludeCaptionMenuResponseFromDataChannel([entryIdToRemove]);
+        deleteActiveCaptionMenuResponseFromDataChannel([entryIdToRemove]);
       };
       let actionButtonDropdownLabel = '';
       if (intl) {
@@ -147,12 +152,15 @@ function TypedCaptions(
       pluginApi.setActionButtonDropdownItems([]);
       pluginApi.setGenericContentItems([]);
     }
-  }, [currentUserResponse, captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
+  }, [
+    currentUserResponse,
+    activeCaptionMenusResponseFromDataChannel,
+    localeMessagesLoading, messages]);
 
   return (
     <TypedCaptionsModal
-      availableCaptionMenus={captionMenusResponseFromDataChannel?.data}
-      pushCaptionMenu={pushCaptionMenuResponseFromDataChannel}
+      availableCaptionMenus={activeCaptionMenusResponseFromDataChannel?.data}
+      pushCaptionMenu={pushActiveCaptionMenuResponseFromDataChannel}
       captionLocale={captionLocale}
       intl={intl}
       setCaptionLocale={setCaptionLocale}
@@ -160,6 +168,7 @@ function TypedCaptions(
       onRequestClose={onRequestClose}
       pluginApi={pluginApi}
       setIsOpen={setIsModalOpen}
+      userId={currentUserResponse?.data?.userId || ''}
     />
   );
 }
