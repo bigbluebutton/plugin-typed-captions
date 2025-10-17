@@ -37,6 +37,7 @@ export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
   return (
     <Styled.CaptionsWrapper>
       <CaptionMessagesList
+        intl={intl}
         captionMessagesResponse={captionMessagesResponseFromDataChannel?.data}
       />
       <TypedCaptionsInput

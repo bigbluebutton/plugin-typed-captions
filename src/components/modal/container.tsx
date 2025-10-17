@@ -2,14 +2,15 @@ import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
 import { IntlShape } from 'react-intl';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+
+import { useActionsButtonManager } from './hooks';
 import { TypedCaptionsModalComponent } from './component';
 import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
 import { AvailableLocaleObject, ActiveCaptionMenuInformation } from '../../common/types';
 
 interface TypedCaptionsModalContainerProps {
-  isOpen: boolean;
   intl: IntlShape;
-  onRequestClose: () => void;
+  localeMessagesLoading: boolean;
   pluginApi: BbbPluginSdk.PluginApi;
 }
 
@@ -17,11 +18,19 @@ const TIMEOUT_RENDER_ERROR = 3000;
 
 function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
   const {
-    isOpen,
-    onRequestClose,
     pluginApi,
     intl,
+    localeMessagesLoading
   } = props;
+
+  const {
+    isModalOpen,
+    onRequestClose,
+  } = useActionsButtonManager(
+    pluginApi,
+    intl,
+    localeMessagesLoading,
+  );
 
   const {
     data: activeCaptionMenusResponseFromDataChannel,
@@ -84,7 +93,7 @@ function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
 
   return (
     <TypedCaptionsModalComponent
-      isOpen={isOpen}
+      isOpen={isModalOpen}
       onRequestClose={onRequestClose}
       intl={intl}
       handleChange={handleChange}

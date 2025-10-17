@@ -2,14 +2,17 @@ import { DataChannelEntryResponseType } from 'bigbluebutton-html-plugin-sdk/dist
 import * as React from 'react';
 import { CaptionMessage } from '../../../common/types';
 import Styled from './styles';
+import { IntlShape } from 'react-intl';
 
 interface CaptionMessagesListProps {
   captionMessagesResponse: DataChannelEntryResponseType<CaptionMessage>[];
+  intl: IntlShape;
 }
 
 export function CaptionMessagesList(props: CaptionMessagesListProps) {
   const {
     captionMessagesResponse,
+    intl,
   } = props;
 
   return (
@@ -17,7 +20,7 @@ export function CaptionMessagesList(props: CaptionMessagesListProps) {
       {captionMessagesResponse?.slice(0).reverse().map((item) => {
         const { createdAt, payloadJson } = item;
         const dateCreatedAt = new Date(createdAt);
-        const time = `${dateCreatedAt.getHours()}:${dateCreatedAt.getMinutes()}`;
+        const time = intl.formatTime(dateCreatedAt);
         const { text } = payloadJson;
         return (
           <Styled.CaptionMessageWrapper

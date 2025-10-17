@@ -1,11 +1,8 @@
-import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
 import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import * as Styled from './styles';
 import LocalesDropdown from './locales-dropdown/component';
-import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
-import { AvailableLocaleObject, ActiveCaptionMenuInformation } from '../../common/types';
+import { AvailableLocaleObject } from '../../common/types';
 
 interface TypedCaptionsModalComponentProps {
   isOpen: boolean;

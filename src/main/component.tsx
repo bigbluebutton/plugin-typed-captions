@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { defineMessages } from 'react-intl';
 import {
   BbbPluginSdk,
   PluginApi,
@@ -7,24 +6,7 @@ import {
 
 import { TypedCaptionsProps } from './types';
 import { TypedCaptionsModalContainer } from '../components/modal/container';
-import { useActionsButtonManager, useGetInternationalization, useTypedCaptionsPanelManager } from './hooks';
-
-
-const intlMessages = defineMessages({
-  selectorLabel: {
-    id: 'plugin.actionButtonDropdown.modal.selectorLabel',
-    description: 'action button dropdown label to start writing',
-  },
-  selectPlaceholder: {
-    id: 'plugin.actionButtonDropdown.modal.selectPlaceHolder',
-    description: 'placeholder of the selector',
-  },
-  startButtonLabel: {
-    id: 'plugin.actionButtonDropdown.modal.start',
-    description: 'start button label',
-  },
-});
-
+import { useGetInternationalization, useTypedCaptionsPanelManager } from './hooks';
 
 function TypedCaptions(
   { pluginUuid: uuid }: TypedCaptionsProps,
@@ -43,22 +25,12 @@ function TypedCaptions(
     intl,
     localeMessagesLoading,
     uuid,
-  )
-
-  const {
-    isModalOpen,
-    onRequestClose,
-  } = useActionsButtonManager(
-    pluginApi,
-    intl,
-    localeMessagesLoading,
   );
 
   return (intl ?
     <TypedCaptionsModalContainer
       intl={intl}
-      isOpen={isModalOpen}
-      onRequestClose={onRequestClose}
+      localeMessagesLoading={localeMessagesLoading}
       pluginApi={pluginApi}
     /> : <></>
   );
