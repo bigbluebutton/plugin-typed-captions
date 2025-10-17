@@ -1,22 +1,21 @@
 import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
 import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
-import Styled from './styles';
+import { useEffect, useState } from 'react';
+import * as Styled from './styles';
 import LocalesDropdown from './locales-dropdown/component';
 import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
 import { AvailableLocaleObject, ActiveCaptionMenuInformation } from '../../common/types';
 
-interface TypedCaptionsModalProps {
+interface TypedCaptionsModalComponentProps {
   isOpen: boolean;
   intl: IntlShape;
   onRequestClose: () => void;
-  setIsOpen: (value: boolean) => void;
-  availableCaptionMenus: BbbPluginSdk.DataChannelEntryResponseType<ActiveCaptionMenuInformation>[];
-  pushCaptionMenu: BbbPluginSdk.PushEntryFunction<ActiveCaptionMenuInformation>;
+  handleStart: React.MouseEventHandler<HTMLButtonElement>;
+  handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  availableLocales: AvailableLocaleObject[];
   captionLocale: string;
-  setCaptionLocale: (value: string) => void;
-  pluginApi: BbbPluginSdk.PluginApi;
-  userId: string;
+  errorMessage: string;
 }
 
 const TIMEOUT_RENDER_ERROR = 3000;
@@ -36,86 +35,34 @@ const intlMessages = defineMessages({
   },
 });
 
-function TypedCaptionsModal(props: TypedCaptionsModalProps) {
+function TypedCaptionsModalComponent(props: TypedCaptionsModalComponentProps) {
   const {
     isOpen,
     onRequestClose,
-    setIsOpen,
-    availableCaptionMenus,
-    pushCaptionMenu,
-    captionLocale: locale,
-    setCaptionLocale: setLocale,
-    pluginApi,
     intl,
-    userId,
+    handleChange,
+    availableLocales,
+    captionLocale,
+    errorMessage,
+    handleStart,
   } = props;
 
-  const [availableLocales, setAvailableLocales] = React.useState<AvailableLocaleObject[]>([]);
-  const [errorMessage, setErrorMessage] = React.useState('');
-
-  React.useEffect(() => {
-    const filteredLocales = AVAILABLE_LOCALES.filter(
-      (l) => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale),
-    );
-    setAvailableLocales(filteredLocales as AvailableLocaleObject[]);
-
-    return () => {
-      setIsOpen(false);
-      setAvailableLocales([]);
-    };
-  }, []);
-
-  const setError = (message: string) => {
-    setErrorMessage(message);
-    setTimeout(() => {
-      setErrorMessage('');
-    }, TIMEOUT_RENDER_ERROR);
-  };
-
-  const handleStart: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const alreadyUsedEntryId = availableCaptionMenus?.filter(
-      (item) => item.payloadJson.captionLocale === locale,
-    )[0]?.entryId;
-    if (locale !== '' && !alreadyUsedEntryId) {
-      pluginApi.serverCommands.caption.addLocale(locale);
-      pushCaptionMenu({
-        captionLocale: locale,
-        userId,
-      });
-      setIsOpen(false);
-    } else if (locale === '') {
-      setError('Please select a language!');
-    } else if (alreadyUsedEntryId) {
-      setError('This language is already in the typed-captions menu');
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-
-  const handleChange: React.EventHandler<React.ChangeEvent<HTMLSelectElement>> = (event) => {
-    setLocale(event.target.value);
-  };
 
   if (!intl) return null;
   const selectorLabel = intl.formatMessage(intlMessages.selectorLabel);
   return isOpen && (
     <Styled.TypedCaptionsModal
       portalClassName="modal-low"
-      parentSelector={() => document.querySelector('#modals-container')}
+      parentSelector={() => document.querySelector('#modals-container') as HTMLElement}
       overlayClassName="modalOverlay"
-      {...{
-        isOpen,
-        onRequestClose,
-        setIsOpen,
-      }}
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
     >
       <Styled.CloseButton
         type="button"
         className="clickable-close"
         onClick={() => {
-          handleCloseModal();
+          onRequestClose();
         }}
       >
         <i
@@ -134,7 +81,7 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
           <LocalesDropdown
             allLocales={availableLocales}
             handleChange={handleChange}
-            value={locale}
+            value={captionLocale}
             elementId="captionsLangSelector"
             intl={intl}
             selectMessage={intl.formatMessage(intlMessages.selectPlaceholder)}
@@ -156,4 +103,4 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   );
 }
 
-export { TypedCaptionsModal };
+export { TypedCaptionsModalComponent };

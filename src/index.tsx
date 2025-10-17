@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import TypedCaptions from './components/main/component';
+import TypedCaptions from './main/component';
 
 const uuid = document.currentScript?.getAttribute('uuid') || 'root';
 

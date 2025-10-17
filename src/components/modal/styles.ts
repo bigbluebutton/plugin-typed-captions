@@ -66,7 +66,7 @@ export {
   borderSizeSmall,
 };
 
-const ModalScrollboxVertical = styled(ReactModal)`
+const ModalScrollBoxVertical = styled(ReactModal)`
   position: relative;
   z-index: 1000 !important;
 
@@ -123,7 +123,7 @@ const ModalScrollboxVertical = styled(ReactModal)`
   }
 `;
 
-const TypedCaptionsModal = styled(ModalScrollboxVertical)`
+const TypedCaptionsModal = styled(ModalScrollBoxVertical)`
   min-height: 30vh;
 `;
 
@@ -259,7 +259,7 @@ const WriterMenuSelect = styled.div`
   }
 `;
 
-export default {
+export {
   ErrorLabel,
   CloseButton,
   BaseButton,
