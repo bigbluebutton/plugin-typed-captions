@@ -27,12 +27,14 @@ function TypedCaptions(
     uuid,
   );
 
-  return (intl ?
-    <TypedCaptionsModalContainer
-      intl={intl}
-      localeMessagesLoading={localeMessagesLoading}
-      pluginApi={pluginApi}
-    /> : <></>
+  return (intl
+    ? (
+      <TypedCaptionsModalContainer
+        intl={intl}
+        localeMessagesLoading={localeMessagesLoading}
+        pluginApi={pluginApi}
+      />
+    ) : null
   );
 }
 

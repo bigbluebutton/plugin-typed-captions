@@ -66,4 +66,4 @@ export const renderComponent = (
     </React.StrictMode>,
   );
   return root;
-}
+};

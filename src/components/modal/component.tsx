@@ -15,8 +15,6 @@ interface TypedCaptionsModalComponentProps {
   errorMessage: string;
 }
 
-const TIMEOUT_RENDER_ERROR = 3000;
-
 const intlMessages = defineMessages({
   selectorLabel: {
     id: 'plugin.actionButtonDropdown.modal.selectorLabel',
@@ -43,7 +41,6 @@ function TypedCaptionsModalComponent(props: TypedCaptionsModalComponentProps) {
     errorMessage,
     handleStart,
   } = props;
-
 
   if (!intl) return null;
   const selectorLabel = intl.formatMessage(intlMessages.selectorLabel);

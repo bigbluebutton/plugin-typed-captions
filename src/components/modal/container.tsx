@@ -20,7 +20,7 @@ function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
   const {
     pluginApi,
     intl,
-    localeMessagesLoading
+    localeMessagesLoading,
   } = props;
 
   const {
@@ -35,11 +35,9 @@ function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
   const {
     data: activeCaptionMenusResponseFromDataChannel,
     pushEntry: pushActiveCaptionMenu,
-  } = pluginApi.useDataChannel!<ActiveCaptionMenuInformation>(
-    'typed-captions-data-channel', BbbPluginSdk.DataChannelTypes.ALL_ITEMS, 'caption-menus'
-  );
+  } = pluginApi.useDataChannel!<ActiveCaptionMenuInformation>('typed-captions-data-channel', BbbPluginSdk.DataChannelTypes.ALL_ITEMS, 'caption-menus');
 
-  const availableCaptionMenus = activeCaptionMenusResponseFromDataChannel?.data || []
+  const availableCaptionMenus = activeCaptionMenusResponseFromDataChannel?.data || [];
 
   const currentUser = pluginApi.useCurrentUser!();
 
@@ -76,7 +74,7 @@ function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
     if (captionLocale !== '' && !alreadyUsedEntryId) {
       pluginApi.serverCommands!.caption.addLocale(captionLocale);
       pushActiveCaptionMenu({
-        captionLocale: captionLocale,
+        captionLocale,
         userId,
       });
       onRequestClose();
