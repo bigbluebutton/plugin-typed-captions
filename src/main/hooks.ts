@@ -3,7 +3,7 @@ import {
   GenericContentSidekickArea,
   PluginApi,
 } from 'bigbluebutton-html-plugin-sdk';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   createIntl, createIntlCache, defineMessages, IntlShape,
 } from 'react-intl';
@@ -35,12 +35,18 @@ export const useGetInternationalization = (pluginApi: PluginApi) => {
     loading: localeMessagesLoading,
   } = pluginApi.useLocaleMessages!(LOCALE_REQUEST_OBJECT);
 
-  const cache = createIntlCache();
-  const intl = (!localeMessagesLoading && localeMessages) ? createIntl({
-    locale: currentLocale,
-    messages: localeMessages,
-    fallbackOnEmptyString: true,
-  }, cache) : null;
+  const [intl, setIntl] = useState<IntlShape>(null);
+
+  useEffect(() => {
+    if (!localeMessagesLoading && localeMessages) {
+      const cache = createIntlCache();
+      setIntl(createIntl({
+        locale: currentLocale,
+        messages: localeMessages,
+        fallbackOnEmptyString: true,
+      }, cache));
+    }
+  }, [localeMessagesLoading, localeMessages]);
 
   return {
     intl,
@@ -69,12 +75,13 @@ export const useTypedCaptionsPanelManager = (
       const sidekickMenuComponentList = activeCaptionMenusResponseFromDataChannel?.data
         .filter((menu) => menu.fromUserId === currentUserId)
         .map((menu) => new GenericContentSidekickArea({
+          id: `transcription-${pluginUuid}`,
           name: intl.formatMessage(intlMessages.menuTitle, {
             0: menu.payloadJson.captionLocale,
           }),
           buttonIcon: 'closed_caption',
           section: sectionName,
-          open: false,
+          open: true,
           contentFunction: renderComponent(
             pluginUuid,
             intl,
