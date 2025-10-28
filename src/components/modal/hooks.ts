@@ -51,7 +51,7 @@ export const useActionsButtonManager = (
     if (currentUserResponse?.data?.role === 'MODERATOR') {
       if (captionLocale === '') {
         activeCaptionMenusResponseFromDataChannel?.data?.forEach((item) => {
-          if (item.fromUserId === currentUserId) {
+          if (item.payloadJson.userId === currentUserId) {
             setCaptionLocale(item.payloadJson.captionLocale);
           }
         });

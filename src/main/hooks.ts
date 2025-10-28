@@ -73,7 +73,7 @@ export const useTypedCaptionsPanelManager = (
       const sectionName = intl.formatMessage(intlMessages.sectionName);
       const currentUserId = currentUserResponse?.data?.userId || '';
       const sidekickMenuComponentList = activeCaptionMenusResponseFromDataChannel?.data
-        .filter((menu) => menu.fromUserId === currentUserId)
+        .filter((menu) => menu.payloadJson.userId === currentUserId)
         .map((menu) => new GenericContentSidekickArea({
           id: `transcription-${pluginUuid}`,
           name: intl.formatMessage(intlMessages.menuTitle, {
