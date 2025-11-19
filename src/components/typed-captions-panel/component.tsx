@@ -1,6 +1,7 @@
 import { BbbPluginSdk, DataChannelTypes, PluginApi } from 'bigbluebutton-html-plugin-sdk';
 import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 
 import Styled from './styles';
 import { TypedCaptionsInput } from './input-captions/component';
@@ -36,6 +37,7 @@ export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
   return (
     <Styled.CaptionsWrapper>
       <CaptionMessagesList
+        intl={intl}
         captionMessagesResponse={captionMessagesResponseFromDataChannel?.data}
       />
       <TypedCaptionsInput
@@ -47,3 +49,21 @@ export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
     </Styled.CaptionsWrapper>
   );
 }
+
+export const renderComponent = (
+  uuid: string,
+  intl: IntlShape,
+  captionLocale: string,
+) => (element: HTMLElement) => {
+  const root = ReactDOM.createRoot(element);
+  root.render(
+    <React.StrictMode>
+      <TypedCaptionsSidekickArea
+        captionLocale={captionLocale}
+        uuid={uuid}
+        intl={intl}
+      />
+    </React.StrictMode>,
+  );
+  return root;
+};

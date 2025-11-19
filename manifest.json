@@ -1,6 +1,7 @@
 {
   "requiredSdkVersion": "~0.0.59",
   "name": "TypedCaptions",
+  "version": "0.0.4",
   "javascriptEntrypointUrl": "TypedCaptions.js",
   "localesBaseUrl": "locales",
   "dataChannels": [

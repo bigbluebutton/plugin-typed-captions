@@ -3,6 +3,8 @@
   "plugin.actionButtonDropdown.remove": "Remove typed closed captions",
   "plugin.actionButtonDropdown.modal.selectorLabel": "Please select a language and styles for closed captions within your session.",
   "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Select",
+  "plugin.actionButtonDropdown.modal.selectError.noneSelected": "Please select a language!",
+  "plugin.actionButtonDropdown.modal.selectError.duplicateLanguage": "This language is already in the typed-captions menu",
   "plugin.actionButtonDropdown.modal.start": "Start",
   "plugin.actionButtonDropdown.modal.dropdown.de-DE": "German",
   "plugin.actionButtonDropdown.modal.dropdown.en-US": "English",

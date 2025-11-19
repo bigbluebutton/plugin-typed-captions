@@ -9,7 +9,6 @@ import {
   colorBlueLight,
   colorGrayLighter,
   colorLink,
-  colorPrimary,
   colorText,
   colorWhite,
   fontSizeBase,
@@ -42,26 +41,25 @@ const Input = styled(TextareaAutosize)`
   -webkit-appearance: none;
   padding: calc(${smPaddingY} * 2.5) calc(${smPaddingX} * 1.25);
   resize: none;
-  transition: none;
+  transition: box-shadow 0.1s ease-in-out;
   border-radius: ${borderRadius};
   font-size: ${fontSizeBase};
   line-height: 1;
   min-height: 2.5rem;
   max-height: 10rem;
   border: 1px solid ${colorGrayLighter};
-  box-shadow: 0 0 0 1px ${colorGrayLighter};
+  box-shadow: none;
 
   &:focus {
-    border-radius: ${borderSize};
-    box-shadow: 0 0 0 ${borderSize} ${colorBlueLight}, inset 0 0 0 1px ${colorPrimary};
+    border-radius: ${borderRadius};
+    box-shadow: 0 0 0 1px ${colorBlueLight} inset;
+    border-color: ${colorBlueLight};
   }
 
   &:hover,
   &:active,
   &:focus {
-    outline: transparent;
-    outline-style: dotted;
-    outline-width: ${borderSize};
+    outline: none;
   }
 `;
 
