@@ -226,7 +226,7 @@ const StartBtn = styled(BaseButton)`
 const ErrorLabel = styled.span`
   font-size: ${fontSizeBase};
   margin-top: ${lgPaddingY};
-  color: ${colorDanger};
+  color: ${colorDangerDark};
 `;
 
 const WriterMenuSelect = styled.div`

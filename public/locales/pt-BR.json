@@ -3,6 +3,8 @@
   "plugin.actionButtonDropdown.remove": "Remover legendas digitadas",
   "plugin.actionButtonDropdown.modal.selectorLabel": "Selecione a língua para as legendas digitadas na sua seção, por favor.",
   "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Selecionar",
+  "plugin.actionButtonDropdown.modal.selectError.noneSelected": "Selecione alguma língua, por favor!",
+  "plugin.actionButtonDropdown.modal.selectError.duplicateLanguage": "Esta língua já está no menu de legendas digitadas",
   "plugin.actionButtonDropdown.modal.start": "Começar",
   "plugin.actionButtonDropdown.modal.dropdown.de-DE": "Alemão",
   "plugin.actionButtonDropdown.modal.dropdown.en-US": "Inglês",

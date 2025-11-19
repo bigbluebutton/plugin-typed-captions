@@ -44,6 +44,7 @@ function TypedCaptionsModalComponent(props: TypedCaptionsModalComponentProps) {
 
   if (!intl) return null;
   const selectorLabel = intl.formatMessage(intlMessages.selectorLabel);
+  const hasError = Boolean(errorMessage && errorMessage.length > 0);
   return isOpen && (
     <Styled.TypedCaptionsModal
       portalClassName="modal-low"
@@ -81,7 +82,7 @@ function TypedCaptionsModalComponent(props: TypedCaptionsModalComponentProps) {
             selectMessage={intl.formatMessage(intlMessages.selectPlaceholder)}
           />
         </Styled.WriterMenuSelect>
-        {errorMessage ?? (
+        {hasError && (
           <Styled.ErrorLabel>
             {errorMessage}
           </Styled.ErrorLabel>

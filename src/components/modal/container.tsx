@@ -1,5 +1,5 @@
 import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
-import { IntlShape } from 'react-intl';
+import { defineMessages, IntlShape } from 'react-intl';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +13,17 @@ interface TypedCaptionsModalContainerProps {
   localeMessagesLoading: boolean;
   pluginApi: BbbPluginSdk.PluginApi;
 }
+
+const intlMessages = defineMessages({
+  errorNoneSelected: {
+    id: 'plugin.actionButtonDropdown.modal.selectError.noneSelected',
+    defaultMessage: 'Please select a language!',
+  },
+  errorDuplicateLanguage: {
+    id: 'plugin.actionButtonDropdown.modal.selectError.duplicateLanguage',
+    defaultMessage: 'This language is already in the typed-captions menu',
+  },
+});
 
 const TIMEOUT_RENDER_ERROR = 3000;
 
@@ -79,9 +90,9 @@ function TypedCaptionsModalContainer(props: TypedCaptionsModalContainerProps) {
       });
       onRequestClose();
     } else if (captionLocale === '') {
-      setError('Please select a language!');
+      setError(intl.formatMessage(intlMessages.errorNoneSelected));
     } else if (alreadyUsedEntryId) {
-      setError('This language is already in the typed-captions menu');
+      setError(intl.formatMessage(intlMessages.errorDuplicateLanguage));
     }
   };
 
