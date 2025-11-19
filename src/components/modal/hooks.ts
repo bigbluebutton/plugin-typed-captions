@@ -77,7 +77,7 @@ export const useActionsButtonManager = (
           new ActionButtonDropdownOption({
             icon: 'closed_caption',
             label: actionButtonDropdownLabel,
-            tooltip: 'this is a button injected by plugin',
+            tooltip: '',
             allowed: true,
             onClick: actionButtonDropdownOnClick,
           }),
