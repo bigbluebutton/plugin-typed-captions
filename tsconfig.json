@@ -6,7 +6,8 @@
         "target": "es5",
         "jsx": "react",
         "allowJs": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "lib": ["es2021", "es2021.intl", "dom"]
     },
     "include": ["src/*", "public/locales/*"],
     "paths": {
