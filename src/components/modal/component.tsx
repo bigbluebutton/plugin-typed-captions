@@ -20,6 +20,11 @@ interface TypedCaptionsModalProps {
   pluginApi: BbbPluginSdk.PluginApi;
 }
 
+interface LocaleProps {
+  locale: string;
+  name: string;
+}
+
 const TIMEOUT_RENDER_ERROR = 3000;
 
 function TypedCaptionsModal(props: TypedCaptionsModalProps) {
@@ -39,7 +44,8 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
-    const filteredLocales = AVAILABLE_LOCALES.filter(l => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale));
+    const localeFilter = (l: LocaleProps) => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale);
+    const filteredLocales = AVAILABLE_LOCALES.filter(localeFilter);
     setAvailableLocales(filteredLocales as AvailableLocaleObject[]);
 
     return () => {
