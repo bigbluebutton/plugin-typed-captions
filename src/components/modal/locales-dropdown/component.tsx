@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { defineMessages, IntlShape } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { AvailableLocaleObject, WindowWithSettings } from '../../../common/types';
+import { intlMessages } from '../../../intlMessages';
 
 const DEFAULT_VALUE = 'select';
 const DEFAULT_KEY = -1;
@@ -13,49 +14,6 @@ interface LocalesDropdownProps {
   elementId: string;
   selectMessage: string;
 }
-
-const intlMessages = defineMessages({
-  'en-US': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.en-US',
-    description: 'English language',
-  },
-  'de-DE': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.de-DE',
-    description: 'English language',
-  },
-  'es-ES': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.es-ES',
-    description: 'English language',
-  },
-  'fr-FR': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.fr-FR',
-    description: 'English language',
-  },
-  'hi-ID': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.hi-ID',
-    description: 'English language',
-  },
-  'it-IT': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.it-IT',
-    description: 'English language',
-  },
-  'ja-JP': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.ja-JP',
-    description: 'English language',
-  },
-  'pt-BR': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.pt-BR',
-    description: 'English language',
-  },
-  'ru-RU': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.ru-RU',
-    description: 'English language',
-  },
-  'zh-CN': {
-    id: 'plugin.actionButtonDropdown.modal.dropdown.zh-CN',
-    description: 'English language',
-  },
-});
 
 declare const window: WindowWithSettings;
 

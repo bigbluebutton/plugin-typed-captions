@@ -1,68 +1,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { createIntl, defineMessages } from 'react-intl';
 
 import {
-  ActionButtonDropdownOption,
-  ActionButtonDropdownSeparator,
-  BbbPluginSdk,
+  MediaAreaOption,
+  MediaAreaSeparator,
   DataChannelTypes,
   GenericContentSidekickArea,
-  PluginApi,
 } from 'bigbluebutton-html-plugin-sdk';
 
-import { TypedCaptionsProps } from './types';
 import { TypedCaptionsModal } from '../modal/component';
 import { CaptionMenu } from '../../common/types';
 import { TypedCaptionsSidekickArea } from '../typed-captions-sidekick-content/component';
+import { TypedCaptionsProps } from './types';
+import { intlMessages } from '../../intlMessages';
 
-const intlMessages = defineMessages({
-  writeCC: {
-    id: 'plugin.actionButtonDropdown.write',
-    description: 'action button dropdown label to start writing',
-  },
-  stopCC: {
-    id: 'plugin.actionButtonDropdown.remove',
-    description: 'action button dropdown label to start writing',
-  },
-  sectionName: {
-    id: 'plugin.actionButtonDropdown.sidekickComponent.sectionName',
-    description: 'name of the sidekick component section',
-  },
-  menuTitle: {
-    id: 'plugin.actionButtonDropdown.sidekickComponent.menuTitle',
-    description: 'title of the sidekick component menu (internal part)',
-  },
-});
-
-function TypedCaptions(
-  { pluginUuid: uuid }: TypedCaptionsProps,
-): React.ReactElement {
-  BbbPluginSdk.initialize(uuid);
-
-  const pluginApi: PluginApi = BbbPluginSdk.getPluginApi(uuid);
-
+function TypedCaptions({ intl, pluginApi, uuid }: TypedCaptionsProps): React.ReactElement {
   const {
     data: captionMenusResponseFromDataChannel,
     pushEntry: pushCaptionMenuResponseFromDataChannel,
     deleteEntry: excludeCaptionMenuResponseFromDataChannel,
   } = pluginApi.useDataChannel<CaptionMenu>('typed-captions-data-channel', DataChannelTypes.ALL_ITEMS, 'caption-menus');
-
-  const {
-    messages,
-    currentLocale,
-    loading: localeMessagesLoading,
-  } = pluginApi.useLocaleMessages({
-    headers: {
-      'ngrok-skip-browser-warning': 'any',
-    },
-  });
-
-  const intl = (!localeMessagesLoading && messages) ? createIntl({
-    locale: currentLocale,
-    messages,
-    fallbackOnEmptyString: true,
-  }) : null;
 
   const [captionLocale, setCaptionLocale] = React.useState('');
 
@@ -76,7 +33,7 @@ function TypedCaptions(
 
   /// contentFunction, name, section, buttonIcon
   React.useEffect(() => {
-    if (!localeMessagesLoading && captionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
+    if (captionMenusResponseFromDataChannel?.data && currentUserResponse?.data?.role === 'MODERATOR') {
       const sectionName = intl.formatMessage(intlMessages.sectionName);
       const sidekickMenuComponentList = captionMenusResponseFromDataChannel?.data
         .map((menu) => new GenericContentSidekickArea({
@@ -102,7 +59,7 @@ function TypedCaptions(
         }));
       pluginApi.setGenericContentItems(sidekickMenuComponentList);
     }
-  }, [captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
+  }, [captionMenusResponseFromDataChannel]);
 
   React.useEffect(() => {
     if (currentUserResponse?.data?.role === 'MODERATOR') {
@@ -131,23 +88,21 @@ function TypedCaptions(
           };
         } else actionButtonDropdownLabel = intl.formatMessage(intlMessages.stopCC);
       }
-      if (!localeMessagesLoading) {
-        pluginApi.setActionButtonDropdownItems([
-          new ActionButtonDropdownSeparator(),
-          new ActionButtonDropdownOption({
-            icon: 'closed_caption',
-            label: actionButtonDropdownLabel,
-            tooltip: 'this is a button injected by plugin',
-            allowed: true,
-            onClick: actionButtonDropdownOnClick,
-          }),
-        ]);
-      }
+      pluginApi.setMediaAreaItems([
+        new MediaAreaSeparator({}),
+        new MediaAreaOption({
+          icon: 'closed_caption',
+          label: actionButtonDropdownLabel,
+          tooltip: 'this is a button injected by plugin',
+          allowed: true,
+          onClick: actionButtonDropdownOnClick,
+        }),
+      ]);
     } else {
-      pluginApi.setActionButtonDropdownItems([]);
+      pluginApi.setMediaAreaItems([]);
       pluginApi.setGenericContentItems([]);
     }
-  }, [currentUserResponse, captionMenusResponseFromDataChannel, localeMessagesLoading, messages]);
+  }, [currentUserResponse, captionMenusResponseFromDataChannel]);
 
   return (
     <TypedCaptionsModal

@@ -1,24 +1,18 @@
 import { BbbPluginSdk, DataChannelTypes, PluginApi } from 'bigbluebutton-html-plugin-sdk';
-import { defineMessages, IntlShape } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import * as React from 'react';
 
 import Styled from './styles';
 import { TypedCaptionsInput } from './input-captions/component';
 import { CaptionMessage } from '../../common/types';
 import { CaptionMessagesList } from './caption-messages-list/component';
+import { intlMessages } from '../../intlMessages';
 
 interface GenericContentExampleProps {
   uuid: string;
   intl: IntlShape;
   captionLocale: string;
 }
-
-const intlMessages = defineMessages({
-  inputPlaceholder: {
-    id: 'plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder',
-    description: 'Placeholder of the sidekick component input',
-  },
-});
 
 export function TypedCaptionsSidekickArea(props: GenericContentExampleProps) {
   const {

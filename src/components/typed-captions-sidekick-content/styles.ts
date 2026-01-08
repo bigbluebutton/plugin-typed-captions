@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import styled from 'styled-components';
-import { mdPaddingY } from '../modal/styles';
+import { mdPaddingX, mdPaddingY, smallOnly } from '../modal/styles';
 
 const CaptionsWrapper = styled.div`
-  height: 100%;
-  width: 100%;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  justify-content: space-between;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+  padding: ${mdPaddingX};
+
+  @media ${smallOnly} {
+    transform: none !important;
+  }
 `;
 
 const HeaderWrapper = styled.div`

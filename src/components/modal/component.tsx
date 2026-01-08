@@ -1,11 +1,12 @@
 import * as BbbPluginSdk from 'bigbluebutton-html-plugin-sdk';
-import { defineMessages, IntlShape } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import * as React from 'react';
 import Styled from './styles';
 import LocalesDropdown from './locales-dropdown/component';
 import './styles.css';
 import { AVAILABLE_LOCALES, CAPTIONS_CONFIG_LANGUAGES } from './constants';
 import { AvailableLocaleObject, CaptionMenu } from '../../common/types';
+import { intlMessages } from '../../intlMessages';
 
 interface TypedCaptionsModalProps {
   isOpen: boolean;
@@ -19,22 +20,12 @@ interface TypedCaptionsModalProps {
   pluginApi: BbbPluginSdk.PluginApi;
 }
 
-const TIMEOUT_RENDER_ERROR = 3000;
+interface LocaleProps {
+  locale: string;
+  name: string;
+}
 
-const intlMessages = defineMessages({
-  selectorLabel: {
-    id: 'plugin.actionButtonDropdown.modal.selectorLabel',
-    description: 'action button dropdown label to start writing',
-  },
-  selectPlaceholder: {
-    id: 'plugin.actionButtonDropdown.modal.selectPlaceHolder',
-    description: 'placeholder of the selector',
-  },
-  startButtonLabel: {
-    id: 'plugin.actionButtonDropdown.modal.start',
-    description: 'start button label',
-  },
-});
+const TIMEOUT_RENDER_ERROR = 3000;
 
 function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const {
@@ -53,7 +44,8 @@ function TypedCaptionsModal(props: TypedCaptionsModalProps) {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
-    const filteredLocales = AVAILABLE_LOCALES.filter(l => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale));
+    const localeFilter = (l: LocaleProps) => CAPTIONS_CONFIG_LANGUAGES.includes(l?.locale);
+    const filteredLocales = AVAILABLE_LOCALES.filter(localeFilter);
     setAvailableLocales(filteredLocales as AvailableLocaleObject[]);
 
     return () => {
