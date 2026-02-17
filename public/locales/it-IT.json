@@ -1,0 +1,20 @@
+{
+"plugin.actionButtonDropdown.write": "Scrivi sottotitoli",
+"plugin.actionButtonDropdown.remove": "Rimuovi sottotitoli digitati",
+"plugin.actionButtonDropdown.modal.selectorLabel": "Seleziona una lingua e uno stile per i sottotitoli all'interno della sessione.",
+"plugin.actionButtonDropdown.modal.selectPlaceHolder": "Seleziona",
+"plugin.actionButtonDropdown.modal.start": "Inizia",
+"plugin.actionButtonDropdown.modal.dropdown.de-DE": "Tedesco",
+"plugin.actionButtonDropdown.modal.dropdown.en-US": "Inglese",
+"plugin.actionButtonDropdown.modal.dropdown.es-ES": "Spagnolo",
+"plugin.actionButtonDropdown.modal.dropdown.fr-FR": "Francese",
+"plugin.actionButtonDropdown.modal.dropdown.hi-ID": "Hindi",
+"plugin.actionButtonDropdown.modal.dropdown.it-IT": "Italiano",
+"plugin.actionButtonDropdown.modal.dropdown.ja-JP": "Giapponese",
+"plugin.actionButtonDropdown.modal.dropdown.pt-BR": "Portoghese",
+"plugin.actionButtonDropdown.modal.dropdown.ru-RU": "Russo",
+"plugin.actionButtonDropdown.modal.dropdown.zh-CN": "Cinese",
+"plugin.actionButtonDropdown.sidekickComponent.sectionName": "Sottotitoli",
+"plugin.actionButtonDropdown.sidekickComponent.menuTitle": "Trascrizione ({0})",
+"plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder": "Digita i tuoi sottotitoli"
+}
