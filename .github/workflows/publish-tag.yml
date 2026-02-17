@@ -34,11 +34,29 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
-
-    - name: Bump version and push tag
+    - name: Bump version, update manifest, commit and tag
       run: |
+        set -euo pipefail
+
         npm install
-        npm version ${{ github.event.inputs.release_type }} -m "chore: bump version to %s"
+
+        # 1) Bump package.json + package-lock.json but DO NOT commit/tag yet
+        npm version ${{ github.event.inputs.release_type }} --no-git-tag-version
+
+        # 2) Read the new version from package.json
+        NEW_VERSION=$(node -p "require('./package.json').version")
+        echo "New version is: $NEW_VERSION"
+
+        # 3) Update manifest.json's "version" field to match
+        jq --arg v "$NEW_VERSION" '.version = $v' manifest.json > manifest.json.tmp
+        mv manifest.json.tmp manifest.json
+
+        # 4) Commit everything and create an annotated tag
+        git add package.json package-lock.json manifest.json
+        git commit -m "chore: bump version to $NEW_VERSION"
+        git tag -a "v$NEW_VERSION" -m "v$NEW_VERSION"
+
+        # 5) Push commit and tag
         git push --follow-tags
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
