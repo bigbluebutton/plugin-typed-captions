@@ -1,8 +1,8 @@
 {
   "requiredSdkVersion": "~0.0.59",
-  "name": "TypedCaptions",
+  "name": "BbbPluginTypedCaptions",
   "version": "0.0.4",
-  "javascriptEntrypointUrl": "TypedCaptions.js",
+  "javascriptEntrypointUrl": "BbbPluginTypedCaptions.js",
   "localesBaseUrl": "locales",
   "dataChannels": [
       {

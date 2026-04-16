@@ -1,5 +1,5 @@
 {
-  "name": "typed-captions",
+  "name": "bbb-plugin-typed-captions",
   "version": "0.0.4",
   "private": false,
   "main": "./src/index.tsx",
