@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Anton Georgiev <anton.georgiev@blindsidenetworks.com>
 Build-Depends: debhelper (>= 13), nodejs (>= 18)
 Standards-Version: 4.1.4
-Homepage: https://github.com/bigbluebutton/plugin-typed-captions
+Homepage: https://github.com/bigbluebutton/bbb-plugin-typed-captions
 
 Package: bbb-plugin-typed-captions
 Architecture: all

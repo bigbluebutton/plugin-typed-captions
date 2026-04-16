@@ -9,7 +9,7 @@ See demo below:
 ![Gif of plugin demo](./public/assets/plugin_demo.gif)
 
 ```bash
-cd $HOME/src/plugin-typed-captions
+cd $HOME/src/bbb-plugin-typed-captions
 npm ci
 npm run build-bundle
 ```
