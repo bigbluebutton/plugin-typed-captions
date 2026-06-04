@@ -28,7 +28,7 @@ jobs:
           user_email="github-actions@github.com"
         fi
         echo "user_email=$user_email" >> $GITHUB_ENV
-    
+
     - name: Configure Git with the triggering user's info
       run: |
         git config user.name "${{ github.actor }}"
