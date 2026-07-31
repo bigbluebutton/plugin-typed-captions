@@ -1,0 +1,22 @@
+{
+  "plugin.actionButtonDropdown.write": "Untertitel schreiben",
+  "plugin.actionButtonDropdown.remove": "Eingegebene Untertitel entfernen",
+  "plugin.actionButtonDropdown.modal.selectorLabel": "Bitte wählen Sie eine Sprache und einen Stil für die Untertitel Ihrer Sitzung aus.",
+  "plugin.actionButtonDropdown.modal.selectError.noneSelected": "Bitte wählen Sie eine Sprache aus!",
+  "plugin.actionButtonDropdown.modal.selectError.duplicateLanguage": "Diese Sprache wurde bereits ausgewählt.",
+  "plugin.actionButtonDropdown.modal.selectPlaceHolder": "Auswählen",
+  "plugin.actionButtonDropdown.modal.start": "Starten",
+  "plugin.actionButtonDropdown.modal.dropdown.de-DE": "Deutsch",
+  "plugin.actionButtonDropdown.modal.dropdown.en-US": "Englisch",
+  "plugin.actionButtonDropdown.modal.dropdown.es-ES": "Spanisch",
+  "plugin.actionButtonDropdown.modal.dropdown.fr-FR": "Französisch",
+  "plugin.actionButtonDropdown.modal.dropdown.hi-ID": "Hindi",
+  "plugin.actionButtonDropdown.modal.dropdown.it-IT": "Italienisch",
+  "plugin.actionButtonDropdown.modal.dropdown.ja-JP": "Japanisch",
+  "plugin.actionButtonDropdown.modal.dropdown.pt-BR": "Portugiesisch",
+  "plugin.actionButtonDropdown.modal.dropdown.ru-RU": "Russisch",
+  "plugin.actionButtonDropdown.modal.dropdown.zh-CN": "Chinesisch",
+  "plugin.actionButtonDropdown.sidekickComponent.sectionName": "Untertitel",
+  "plugin.actionButtonDropdown.sidekickComponent.menuTitle": "Transkription ({0})",
+  "plugin.actionButtonDropdown.sidekickComponent.inputPlaceholder": "Geben Sie Ihre Untertitel ein"
+}
