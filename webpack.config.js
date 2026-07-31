@@ -5,8 +5,8 @@ const path = require('path');
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: 'TypedCaptions.js',
-    library: 'TypedCaptions',
+    filename: 'BbbPluginTypedCaptions.js',
+    library: 'BbbPluginTypedCaptions',
     libraryTarget: 'umd',
     publicPath: '/',
     globalObject: 'this',
